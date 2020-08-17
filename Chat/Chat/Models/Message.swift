@@ -9,6 +9,5 @@ import UIKit
 
 struct Message {
     var id: Int
-    var ofUser: Int
     var text: String
 }

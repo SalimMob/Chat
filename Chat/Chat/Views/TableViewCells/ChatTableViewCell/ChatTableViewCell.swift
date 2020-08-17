@@ -13,6 +13,10 @@ class ChatTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        lblMsg.layer.cornerRadius = 5.0
+        lblMsg.layer.borderWidth = 0.3
+        lblMsg.layer.borderColor = UIColor.gray.cgColor
+        lblMsg.layer.masksToBounds = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -12,6 +12,7 @@ class ChatViewController: GenericViewController {
     
     @IBOutlet weak var tvMsg: UITableView!
     let chatTableViewCellIdentifier = "ChatTableViewCell"
+    @IBOutlet var tfMsg: UITextField!
     var arrayOfMessages: [Message] = []
     var arrayOfUsers1: [NSManagedObject] = []
     var user: User?
@@ -24,17 +25,18 @@ class ChatViewController: GenericViewController {
         setRowHeight(for: tvMsg, value: 100.0)
         tvMsg.separatorStyle = .none
         fillArray()
+        title = user!.firstName + " " + user!.lastName
     }
     
     func fillArray() {
         arrayOfMessages = [
-            Message(id: 0, ofUser: 0, text: "salimov0"),
-            Message(id: 0, ofUser: 0, text: "salimov0"),
-            Message(id: 0, ofUser: 0, text: "salimov0"),
-            Message(id: 0, ofUser: 0, text: "salimov0"),
-            Message(id: 0, ofUser: 0, text: "salimov0"),
-            Message(id: 0, ofUser: 0, text: "salimov0"),
-            Message(id: 0, ofUser: 0, text: "salimov0")
+            Message(id: 0, text: "user1"),
+            Message(id: 1, text: "user2"),
+            Message(id: 3, text: "user3"),
+            Message(id: 4, text: "user4"),
+            Message(id: 5, text: "user5"),
+            Message(id: 6, text: "user6"),
+            Message(id: 7, text: "user7")
         ]
         
         for i in 0 ..< arrayOfMessages.count {
@@ -56,6 +58,11 @@ class ChatViewController: GenericViewController {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    
+    @IBAction func btnSend(_ sender: Any) {
+        
+    }
 }
 
 
@@ -71,7 +78,7 @@ extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let chatTableViewCell = tableView.dequeueReusableCell(withIdentifier: chatTableViewCellIdentifier, for: indexPath) as! ChatTableViewCell
         let messageCD = arrayOfUsers1[indexPath.row]
-        var message = Message(id: 0, ofUser: 0, text: "salimov0")
+        var message = Message(id: 0, text: "")
         message.text = messageCD.value(forKeyPath: "text") as! String
         return chatTableViewCell
     }

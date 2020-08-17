@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import Helpers
 import CoreData
+import Helpers
 
 class UsersViewController: GenericViewController {
     
@@ -39,21 +39,25 @@ class UsersViewController: GenericViewController {
     }
     
     func fillArray() {
-        arrayOfUsers = [
-            User(id: 0, firstName: "user1", lastName: "user11", imgName: "user"),
-            User(id: 1, firstName: "user2", lastName: "user22", imgName: "user"),
-            User(id: 2, firstName: "user3", lastName: "user33", imgName: "user"),
-            User(id: 3, firstName: "user4", lastName: "user44", imgName: "user"),
-            User(id: 4, firstName: "user5", lastName: "user55", imgName: "user"),
-            User(id: 5, firstName: "user6", lastName: "user66", imgName: "user"),
-            User(id: 6, firstName: "user7", lastName: "user77", imgName: "user"),
-            User(id: 7, firstName: "user8", lastName: "user88", imgName: "user")
-        ]
-        for i in 0 ..< arrayOfUsers.count {
-            save(user: arrayOfUsers[i])
+        if !UserDefaultsManager.getBool(forKey: "isFirstTime") {
+            arrayOfUsers = [
+                User(id: 0, firstName: "user1", lastName: "user11", imgName: "user"),
+                User(id: 1, firstName: "user2", lastName: "user22", imgName: "user"),
+                User(id: 2, firstName: "user3", lastName: "user33", imgName: "user"),
+                User(id: 3, firstName: "user4", lastName: "user44", imgName: "user"),
+                User(id: 4, firstName: "user5", lastName: "user55", imgName: "user"),
+                User(id: 5, firstName: "user6", lastName: "user66", imgName: "user"),
+                User(id: 6, firstName: "user7", lastName: "user77", imgName: "user"),
+                User(id: 7, firstName: "user8", lastName: "user88", imgName: "user")
+            ]
+            for i in 0 ..< arrayOfUsers.count {
+                save(user: arrayOfUsers[i])
+            }
+            UserDefaultsManager.setBool(bool: true, forKey: "isFirstTime")
         }
         
         arrayOfActiveUsers = CoreDataManager.shared.getData(entityName: "UserCD")
+        refreshControl.endRefreshing()
     }
     
     func save(user: User) {
